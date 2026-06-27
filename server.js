@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/submit', async (req, res) => {
-    const { q1, q2 } = req.body;
+    const { q1, q2, q30, q31, video_url } = req.body;
 
     if (!q1) {
         return res.status(400).json({ error: '请回答第1题' });
@@ -34,7 +34,7 @@ app.post('/api/submit', async (req, res) => {
     try {
         const { data, error } = await supabase
             .from('responses')
-            .insert([{ q1, q2: q2 || null }]);
+            .insert([{ q1, q2: q2 || null, q30: q30 || null, q31: q31 || null, video_url: video_url || null }]);
 
         if (error) {
             console.error('Supabase插入失败:', error);
